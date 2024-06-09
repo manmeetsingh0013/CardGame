@@ -20,4 +20,9 @@ public static class RandomizationWithExclusion
         }
         return number;
     }
+
+    public static void ClearExcludedList()
+    {
+        excludedNumbers.Clear();
+    }
 }

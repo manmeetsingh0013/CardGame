@@ -186,6 +186,7 @@ namespace CardMatch.UI.Screens
         private void PopulatePlayerOptions()
         {
             playableCards.Clear();
+            RandomizationWithExclusion.ClearExcludedList();
             cardContainer.gameObject.SetActive(false);
             int count = 0;
             int totalCells = gameConfig.cardRow * gameConfig.cardCol;
@@ -198,6 +199,10 @@ namespace CardMatch.UI.Screens
                 playableCards.Add(item);
                 count++;
             }
+
+            playableCards.ForEach(item => {
+                item.SetRandomSiblingValue();
+            });
         }
 
         private void LoadPreviousGame()
@@ -246,8 +251,7 @@ namespace CardMatch.UI.Screens
             {
                 if (item)
                 {
-                    item.SetRandomSiblingValue();
-                    //item.FlipAnimation();
+                    item.FlipAnimation();
                 }
             });
             countdownTmp.text = string.Empty;

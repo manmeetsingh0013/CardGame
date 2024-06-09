@@ -1,4 +1,5 @@
 using System.Collections;
+using CardMatch.Services;
 using TMPro;
 using UnityEngine;
 
@@ -43,7 +44,7 @@ namespace CardMatch.UI.Items
                 yield return eof;
                 progress += Time.deltaTime;
             }
-
+            Bootstrap.GetService<AudioService>().PlayAudio(AudioTag.Completed);
             captionTransform.anchoredPosition = _end;
         }
     }
