@@ -1,5 +1,3 @@
-//using CardMatch.Audio;
-//using CardMatch.Miscellaneous;
 using CardMatch.Services;
 using CardMatch.UI.Screens;
 using UnityEngine;
@@ -21,6 +19,8 @@ namespace CardMatch.UI.Items
         private Vector3 revealRotation = new Vector3(0, 90, 0);
         private Button button;
 
+        public bool isMatched { get; private set; }
+
         private void Awake()
         {
             button = GetComponent<Button>();
@@ -33,12 +33,21 @@ namespace CardMatch.UI.Items
         }
         internal void ShowAndHideCard(bool status)
         {
-            gameObject.SetActive(status);
+            gameObject.SetActive(status && !isMatched);
+        }
+        internal void SetRevealCard()
+        {
+            hideImg.transform.eulerAngles = revealRotation;
+        }
+        internal void SetMatched(bool match)
+        {
+            isMatched = match;
         }
 
         internal void FlipAnimation(float delay =1.5f)
         {
-            StartCoroutine(CardCoroutine(hideImg.transform,delay,revealRotation,Vector3.zero));
+            if(gameObject.activeInHierarchy)
+                StartCoroutine(CardCoroutine(hideImg.transform,delay,revealRotation,Vector3.zero));
         }
 
         private IEnumerator CardCoroutine(Transform target,float delay,Vector3 start,Vector3 end,Action AfterReveal=null)
@@ -63,11 +72,7 @@ namespace CardMatch.UI.Items
         {
             button.enabled = false;
             StartCoroutine(CardCoroutine(hideImg.transform, 0, Vector3.zero, revealRotation,StartCompare));
-
-            //Bootstrap.GetService<GameManagementService>().CurrentPlayerSelection = HandType;
-            //transform.SetAsLastSibling();
-            //Bootstrap.GetService<AudioService>().PlayAudio(AudioTags.HAND_TAP);
-            //Debug.Log(HandType);
+            Bootstrap.GetService<AudioService>().PlayAudio(AudioTag.ButtonTap);
         }
 
         private void StartCompare()
@@ -77,7 +82,11 @@ namespace CardMatch.UI.Items
             hudScreen.SetAndComparePlayerOption(this);
         }
 
-        //internal void ToggleScale(bool selected) =>
-        //    transform.localScale = selected ? GameConstants.SelectedScale : GameConstants.NormalScale;
+        internal void SetRandomSiblingValue()
+        {
+            int totalChild = gameConfig.cardRow * gameConfig.cardCol;
+            int childIndex = RandomizationWithExclusion.GetRandomWithExclusion(new System.Random(), totalChild - 1);
+            transform.SetSiblingIndex(childIndex);
+        }
     }
 }
