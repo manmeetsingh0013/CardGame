@@ -5,6 +5,6 @@ The user is presented with x cards faced down. On clicking the card, the face of
 The objective of this game is to turn all cards face up as fast as possible
 Players need to remember the positions and values of the cards they have seen to improve their chances of finding pairs in future turns.
 
-<size="75">Winning the Game:</size>.
+Winning the Game:-
 The game ends when all pairs have been found.
 The player with the most pairs of cards at the end of the game is the winner.
