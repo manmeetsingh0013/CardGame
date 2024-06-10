@@ -8,3 +8,5 @@ Players need to remember the positions and values of the cards they have seen to
 Winning the Game:-
 The game ends when all pairs have been found.
 The player with the most pairs of cards at the end of the game is the winner.
+
+![Uploading UMLDiaGram.png…]()
