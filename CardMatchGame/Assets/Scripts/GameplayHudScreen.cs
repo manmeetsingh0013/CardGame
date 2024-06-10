@@ -185,21 +185,25 @@ namespace CardMatch.UI.Screens
 
         private void PopulatePlayerOptions()
         {
+            int totalCells = gameConfig.cardRow * gameConfig.cardCol;
             playableCards.Clear();
             RandomizationWithExclusion.ClearExcludedList();
             cardContainer.gameObject.SetActive(false);
             int count = 0;
-            int totalCells = gameConfig.cardRow * gameConfig.cardCol;
-            //TODO : Need to fix this logic...
-            int indexValue = (gameConfig.sprites.Count < totalCells / 2) ? gameConfig.sprites.Count : (totalCells / 2);
+            int pairCardCount = 0;
             while (count < totalCells)
             {
                 PlayableItemUI item = Instantiate(playerItemPrefab, cardContainer);
-                item.SetValues(count % indexValue);
+                item.SetValues(pairCardCount);
                 playableCards.Add(item);
                 count++;
-            }
 
+                pairCardCount = count % 2 == 0 ? pairCardCount+1 : pairCardCount;
+                if(pairCardCount >= gameConfig.sprites.Count)
+                {
+                    pairCardCount = 0;
+                }
+            }
             playableCards.ForEach(item => {
                 item.SetRandomSiblingValue();
             });

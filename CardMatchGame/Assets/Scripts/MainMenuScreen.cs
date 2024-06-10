@@ -1,21 +1,25 @@
 using CardMatch.Services;
 using CardMatch.StateMachine.States;
 using CardMatch.UI.Base;
-using TMPro;
 using UnityEngine;
 
 namespace CardMatch.UI.Screens
 {
     public class MainMenuScreen : ScreenBase
     {
-        [SerializeField] private TextMeshProUGUI highScoreTextTmp;
         [SerializeField] private GameObject infoPanel;
+        [SerializeField] private GameObject invalidGamePanel;
+        [SerializeField] private GameConfig gameConfig;
 
         private Coroutine _titleCoroutine;
 
         protected internal override void EnableScreen()
         {
             base.EnableScreen();
+            if((gameConfig.cardRow * gameConfig.cardCol) %2==1)
+            {
+                invalidGamePanel.gameObject.SetActive(true);
+            }
         }
 
         protected internal override void DisableScreen()

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2ee68eb5f0ef4689ad7b8775f423cd7, type: 3}
   m_Name: GameConfiguration
   m_EditorClassIdentifier: 
-  cardRow: 4
+  cardRow: 3
   cardCol: 4
   sprites:
   - {fileID: 21300000, guid: 0dc6a26e320a7446b8fcaf9abb99f1a9, type: 3}
@@ -40,5 +40,10 @@ MonoBehaviour:
   - audioClip: {fileID: 8300000, guid: 2c2de51bba22d5543bdefd90432a6b93, type: 3}
     volume: 1
     audioTag: 3
+    loop: 0
+    isMusic: 0
+  - audioClip: {fileID: 8300000, guid: 1e2e5d517945049019afe99bc1f663f6, type: 3}
+    volume: 1
+    audioTag: 4
     loop: 0
     isMusic: 0
