@@ -21,6 +21,8 @@ namespace CardMatch.UI.Items
 
         public bool isMatched { get; private set; }
 
+        private Coroutine flipRoutine;
+
         private void Awake()
         {
             button = GetComponent<Button>();
@@ -46,8 +48,12 @@ namespace CardMatch.UI.Items
 
         internal void FlipAnimation(float delay =1.5f)
         {
-            if(gameObject.activeInHierarchy)
-                StartCoroutine(CardCoroutine(hideImg.transform,delay,revealRotation,Vector3.zero));
+            if (gameObject.activeInHierarchy)
+            {
+                if (flipRoutine != null)
+                    StopCoroutine(flipRoutine);
+                flipRoutine = StartCoroutine(CardCoroutine(hideImg.transform, delay, revealRotation, Vector3.zero));
+            }
         }
 
         private IEnumerator CardCoroutine(Transform target,float delay,Vector3 start,Vector3 end,Action AfterReveal=null)
@@ -84,7 +90,7 @@ namespace CardMatch.UI.Items
 
         internal void SetRandomSiblingValue()
         {
-            int totalChild = gameConfig.cardRow * gameConfig.cardCol;
+            int totalChild = transform.parent.transform.childCount;
             int childIndex = RandomizationWithExclusion.GetRandomWithExclusion(new System.Random(), totalChild - 1);
             transform.SetSiblingIndex(childIndex);
         }

@@ -204,13 +204,12 @@ namespace CardMatch.UI.Screens
                     pairCardCount = 0;
                 }
             }
-            playableCards.ForEach(item => {
-                item.SetRandomSiblingValue();
-            });
+            SetCardsRandomSibling();
         }
 
         private void LoadPreviousGame()
         {
+            RandomizationWithExclusion.ClearExcludedList();
             cardContainer.gameObject.SetActive(false);
             playableCards.Clear();
             foreach (var item in userData.cardData)
@@ -223,9 +222,14 @@ namespace CardMatch.UI.Screens
             }
             UpdateCurrentScore(userData.userMatches);
             UpdateCurrentTurns(userData.userTurns);
-
+            SetCardsRandomSibling();
             Bootstrap.GetService<ScoreService>().UpdateCurrentScoreAndTurns(userData.userMatches, userData.userTurns);
-
+        }
+        private void SetCardsRandomSibling()
+        {
+            playableCards.ForEach(item => {
+                item.SetRandomSiblingValue();
+            });
         }
         private void SetupGrid()
         {
