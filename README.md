@@ -9,4 +9,5 @@ Winning the Game:-
 The game ends when all pairs have been found.
 The player with the most pairs of cards at the end of the game is the winner.
 
-![Uploading UMLDiaGram.png…]()
+
+<img width="960" alt="UMLDiaGram" src="https://github.com/manmeetsingh0013/CardGame/assets/12394989/4fe665f3-5a49-4ed9-aa23-b734d731aecb">
